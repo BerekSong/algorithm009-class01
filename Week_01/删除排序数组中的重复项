@@ -1,0 +1,18 @@
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        //双指针方法
+        int p = 0, q = 1;
+        while (q < nums.length) {
+            //不同时 将当前p指针的值 复制到p指针的后一位；p指针后移一位
+            if (nums[p] != nums[q]) {
+                nums[p + 1] = nums[q];
+                p++;
+            }
+            //移动q的指针
+            q++;
+        }
+        return p + 1;
+    }
+}
+//时间复杂度为 O(n), 空间复杂度为O(1)

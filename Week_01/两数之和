@@ -1,0 +1,18 @@
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        //动态规划
+        //先将数据中的值，和下标添加到Map
+        //看map中是否包含（target- 当前数组中的一个值），返回数据下标
+        int[] result = new int[2];
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(target - nums[i]) {
+                result[1] = i;
+                result[0] = map.get(target - nums[i]);
+                return result;
+            }
+            map.put(nums[i], i);
+        }
+        return result;
+    }
+}

@@ -1,0 +1,16 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+        //循环整个数组，值++，求余后赋值，然后判断是否等于0，
+        //不等于0 直接数组，如果等于0继续
+        //如果for循环完毕说明数组中值都是0，那需要扩充数组，然后第一位赋值1；
+        for (int i = digits.length -1; i >= 0; i--) {
+            digits[i]++;
+            digits[i] = digits[i] % 10;
+            if (digits[i] != 0)
+                return digits;
+        }
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
+    }
+}
