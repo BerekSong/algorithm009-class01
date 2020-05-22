@@ -12,7 +12,10 @@ Array.sort() 的时间复杂度是O(n*logn);
 ArrayList 动态数组，大小可变；需要扩容是使用System.arraycopy方法；  
 Vector可以实现可增长的对象数组；
 Vector是线程安全的，ArrayList是线程非安全的；
-Stack继承Vector；
+Stack继承Vector；是Vector的子类，Stack的底层数据结构是数组
+public class Stack<E> extends Vector<E> 
+protected Object[] elementData;
+
 
 一维数据加速处理，可以变成二维来提速操作；
 

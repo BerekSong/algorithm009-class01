@@ -1,0 +1,14 @@
+Queue:
+https://zhuanlan.zhihu.com/p/64835863
+
+入队：add() 和 offer()
+二者区别在于：当队列空间已满无法入队时，add() 方法会抛出异常；而 offer() 会返回 false。
+出队：remove() 和 poll()
+二者区别在于：当队列为空时，remove() 方法会抛出异常，而 poll() 会返回 null。
+遍历：element() 和 peek()
+element() 和 peek() 都表示检索但不移除队列头部元素，可用于从头开始遍历队列。
+
+
+PriorityQueue:优先级队列
+https://juejin.im/post/5cbb2a996fb9a0689d6f9ca4
+
