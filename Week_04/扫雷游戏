@@ -1,0 +1,97 @@
+class Solution {
+    public char[][] updateBoard(char[][] board, int[] click) {
+        //BFS
+        int m = board.length, n = board[0].length;
+        Queue<int[]> que = new ArrayDeque<>();
+        que.add(click);
+
+        while (!que.isEmpty()) {
+            int[] cell = que.poll();
+            int row = cell[0], col = cell[1];
+
+            if (board[row][col] == 'M')
+                board[row][col] = 'X';
+            else {
+                int count = 0;
+                for (int i = -1; i < 2; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        if (i == 0 && j == 0)
+                            continue;
+                        int r = row + i, c = col + j;
+                        if (r < 0 || r >= m || c < 0 || c >= n)
+                            continue;
+                        if (board[r][c] == 'M' || board[r][c] == 'X')
+                            count++;
+                    }
+                }
+                if (count > 0)
+                    board[row][col] = (char)(count + '0');
+                else {
+                    board[row][col] = 'B';
+                    for (int i = -1; i < 2; i++) {
+                        for (int j = -1; j < 2; j++) {
+                            if (i == 0 && j == 0)
+                                continue;
+                            int r = row + i, c = col + j;
+                            if (r < 0 || r >= m || c < 0 || c >= n)
+                                continue;
+                            if (board[r][c] == 'E') {
+                                que.add(new int[] {r, c});
+                                board[r][c] = 'B';
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        return board;
+    }
+}
+
+
+class Solution {
+    public char[][] updateBoard(char[][] board, int[] click) {
+        //DFS
+        int m = board.length, n = board[0].length;
+        int row = click[0], col = click[1];
+
+        if (board[row][col] == 'M') //直接点击炸弹上
+            board[row][col] = 'X';
+        else {
+            //点击到数字上，要显示所点击的数字
+            int count = 0;
+            //循环点击位的四周判断有几颗雷
+            for (int i = -1; i < 2; i++) {
+                for (int j = -1; j < 2; j++) {
+                    if (i == 0 && j == 0)
+                        continue;
+                    int r = row + i, c = col + j;
+                    if (r < 0 || r >= m || c <0 || c >= n)
+                        continue;
+                    if (board[r][c] == 'M' || board[r][c] == 'X')
+                        count++;
+                }
+            }
+
+            if (count > 0) //说明周围有雷
+                board[row][col] = (char)(count + '0');
+            else { //  DFS 相邻的格子.
+                board[row][col] = 'B';
+                for (int i = -1; i < 2; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        if (i == 0 && j == 0)
+                            continue;
+                        int r = row + i, c = col + j;
+                        if (r < 0 || r >= m || c <0 || c >= n)
+                            continue;
+                        if (board[r][c] == 'E')
+                            updateBoard(board, new int[] {r, c});
+                    }
+                }
+
+            }
+        }
+        return board;
+    }
+}
