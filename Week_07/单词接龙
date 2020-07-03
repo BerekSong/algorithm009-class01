@@ -1,0 +1,58 @@
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        //双向BFS
+
+        // 先将 wordList 放到哈希表里，便于判断某个单词是否在 wordList 里
+        Set<String> wordSet = new HashSet<>(wordList);
+        if (wordSet.size() == 0 || !wordSet.contains(endWord))
+            return 0;
+
+        Set<String> beginSet = new HashSet<>(),
+                    endSet = new HashSet<>();
+
+        Set<String> visited = new HashSet<>();
+        beginSet.add(beginWord);
+        endSet.add(endWord);
+
+        int wordLen = beginWord.length();
+        // 包含起点，因此初始化的时候步数为 1
+        int step = 1;
+        while (!beginSet.isEmpty() && !endSet.isEmpty()) {
+            if (beginSet.size() > endSet.size()) {
+                Set<String> set = beginSet;
+                beginSet = endSet;
+                endSet = set;
+            }
+
+            Set<String> temp = new HashSet<>();
+            for (String word : beginSet) {
+                char[] charArray = word.toCharArray();
+                // 修改每一个字符
+                for(int j = 0; j < wordLen; j++) {
+                    // 一轮以后应该重置，否则结果不正确
+                    char originChar = charArray[j];
+                    for (char k= 'a'; k <= 'z'; k++) {
+                        if (k == originChar)
+                            continue;
+                        charArray[j] = k;
+                        String nextWord = String.valueOf(charArray);
+
+                        if (endSet.contains(nextWord))
+                             return step + 1;
+                        if (!visited.contains(nextWord) && wordSet.contains(nextWord)) {
+                            temp.add(nextWord);
+                            // 注意：添加到队列以后，必须马上标记为已经访问
+                            visited.add(nextWord);
+                        }
+
+                    }
+                    // 恢复
+                    charArray[j] = originChar;
+                }
+            }
+            beginSet = temp;
+            step++;
+        }
+        return 0;
+    }
+}

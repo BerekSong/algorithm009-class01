@@ -1,0 +1,24 @@
+class Solution {
+    List<String> res;
+    public List<String> generateParenthesis(int n) {
+        res = new ArrayList<>();
+        recursion(0, 0, n, "");
+        return res;
+    }
+    private void recursion(int left, int right, int n, String s) {
+        //terminator
+        if (left == n && right == n){
+            res.add(s);
+            return;
+        }
+
+        //process
+
+        //drill down
+        if (left < n)
+            recursion(left + 1, right, n , s + "(");
+        if (left > right)
+            recursion(left, right + 1, n, s + ")");
+        //reverse state
+    }
+}
